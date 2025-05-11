@@ -1,18 +1,19 @@
-correct the potential errors in it:
-
 #!/bin/bash
 
-# Env Vars
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Environment Variables
 POSTGRES_USER="asim"
 POSTGRES_PASSWORD=$(openssl rand -base64 12)  # Generate a random 12-character password
 POSTGRES_DB="mydatabase"
 SECRET_KEY="my-secret" # for the demo app
 NEXT_PUBLIC_SAFE_KEY="safe-key" # for the demo app
-DOMAIN_NAME="kaabbarsha.com" # replace with your own
+DOMAIN_NAME="api.kaabbarsha.com" # replace with your own
 EMAIL="kaabteacher@gmail.com" # replace with your own
 
-# Script Vars
-REPO_URL="https://github.com/asimqasmi/kaabexams25.git"
+# Script Variables
+REPO_URL="https://github.com/asimqasmi/kaabexams25v2.git"
 APP_DIR=~/myapp
 SWAP_SIZE="1G"  # Swap size of 1GB
 
@@ -99,8 +100,10 @@ sudo rm -f /etc/nginx/sites-enabled/myapp
 # Stop Nginx temporarily to allow Certbot to run in standalone mode
 sudo systemctl stop nginx
 
-# Obtain SSL certificate using Certbot standalone mode
+# Install Certbot
 sudo apt install certbot -y
+
+# Obtain SSL certificate using Certbot standalone mode
 sudo certbot certonly --standalone -d $DOMAIN_NAME --non-interactive --agree-tos -m $EMAIL
 
 # Ensure SSL files exist or generate them
@@ -168,8 +171,7 @@ if ! sudo docker-compose ps | grep "Up"; then
 fi
 
 # Output final message
-echo "Deployment complete. Your Next.js app and PostgreSQL database are now running. 
-Next.js is available at https://$DOMAIN_NAME, and the PostgreSQL database is accessible from the web service.
+echo "Deployment complete. Your API is now running at https://$DOMAIN_NAME.
 
 The .env file has been created with the following values:
 - POSTGRES_USER
@@ -179,3 +181,4 @@ The .env file has been created with the following values:
 - DATABASE_URL_EXTERNAL
 - SECRET_KEY
 - NEXT_PUBLIC_SAFE_KEY"
+
