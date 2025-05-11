@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  hono-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./:/app
+    command: ["node", "./dist/src/index.js"]
+    depends_on:
+      - db
+    networks:
+      - my_network
+
+  db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my_network
+
+volumes:
+  postgres_data:
+
+networks:
+  my_network:
+    name: my_network
+    driver: bridge
