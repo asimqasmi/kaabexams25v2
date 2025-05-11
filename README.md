@@ -35,6 +35,27 @@ npx degit w3cj/hono-open-api-starter my-api
 cd my-api
 ```
 
+First, run the development server:
+
+## update ubuntu and upgrade
+
+```bash
+sudo apt update -y && sudo apt upgrade -y
+apt install unzip -y
+curl -fsSL https://bun.sh/install | bash
+```
+
+## Docker
+
+```bash
+ curl -fsSL https://test.docker.com -o test-docker.sh
+ sudo sh test-docker.sh
+```
+
+```bash
+curl -o ~/deploy.sh https://raw.githubusercontent.com/asimqasmi/kaabexams25/refs/heads/main/deploy.sh && chmod +x deploy.sh && ./deploy.sh
+```
+
 Create `.env` file
 
 ```sh
